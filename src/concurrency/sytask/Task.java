@@ -21,4 +21,25 @@ public class Task {
         }
 
     }
+
+    //=============doLongLock()方法用于判断当一个synchroniezed方法锁住休眠时,调用其他方法能否正常调用=================
+    public synchronized void doLongLock(){
+        try{
+            System.out.println("begin doLong lock." + Thread.currentThread().getName());
+            Thread.sleep(10000L);
+            System.out.println("end do long lock." + Thread.currentThread().getName());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public synchronized void doLongLock2(){
+        try{
+            System.out.println("begin doLong lock." + Thread.currentThread().getName());
+            System.out.println("end do long lock." + Thread.currentThread().getName());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    //=========================实验结论:锁的是整个对象,当一个方法休眠时,其他方法不会访问==================================
 }
